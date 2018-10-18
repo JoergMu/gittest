@@ -1,3 +1,16 @@
-hello
-test
-nochmal
+def change_file():
+    files = os.listdir()
+    while len(files) != 9: # this is set to make sure the function only starts when the download is completed
+        time.sleep(3)
+        files = os.listdir()
+    for file in files:
+        if "MaterialDataTransDiffList" in file:
+            book = openpyxl.load_workbook(file, read_only=False, keep_vba=True)
+            sheet = book['Material Data Trans Diff List']
+            r = sheet.max_row
+            for line in range(4, r+1):
+                # i want to add a "1" to column B from line 4 
+                sheet.cell(row=line, column=2).value = "1"
+            book.save(file)
+            
+        
